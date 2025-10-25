@@ -29,10 +29,17 @@ layout: layouts/base.njk
 
 <hr>
 <h2>Comments</h2>
-<script src="https://utteranc.es/client.js"
-	repo="blindsight-jl/bookclub"
-	issue-term="title"
-	theme="icy-dark"
-	crossorigin="anonymous"
-	async>
+<div id="utterances-container"></div>
+<script>
+console.log('Testing utterances loading...');
+const script = document.createElement('script');
+script.src = 'https://utteranc.es/client.js';
+script.setAttribute('repo', 'blindsight-jl/bookclub');
+script.setAttribute('issue-term', 'title');
+script.setAttribute('theme', 'icy-dark');
+script.crossOrigin = 'anonymous';
+script.async = true;
+script.onload = () => console.log('Utterances script loaded!');
+script.onerror = (e) => console.error('Failed to load utterances:', e);
+document.getElementById('utterances-container').appendChild(script);
 </script>
