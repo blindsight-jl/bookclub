@@ -2,6 +2,7 @@ import { IdAttributePlugin, InputPathToUrlTransformPlugin, HtmlBasePlugin } from
 import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import pluginNavigation from "@11ty/eleventy-navigation";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import markdownIt from "markdown-it";
 
 import pluginFilters from "./_config/filters.js";
 
@@ -57,6 +58,29 @@ export default async function(eleventyConfig) {
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(HtmlBasePlugin);
 	eleventyConfig.addPlugin(InputPathToUrlTransformPlugin);
+
+	// Customize Markdown library settings:
+	eleventyConfig.setLibrary("md",
+		markdownIt({
+			html: true,
+			breaks: true,
+			linkify: true
+		}).use(function(md) {
+			// Plugin to make all external links open in a new tab
+			const defaultRender = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
+				return self.renderToken(tokens, idx, options);
+			};
+
+			md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+				const href = tokens[idx].attrGet('href');
+				if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+					tokens[idx].attrPush(['target', '_blank']);
+					tokens[idx].attrPush(['rel', 'noopener noreferrer']);
+				}
+				return defaultRender(tokens, idx, options, env, self);
+			};
+		})
+	);
 
 	// Image optimization: https://www.11ty.dev/docs/plugins/image/#eleventy-transform
 	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
