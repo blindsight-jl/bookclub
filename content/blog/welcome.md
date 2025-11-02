@@ -4,9 +4,17 @@ description: This is my first post
 date: 2025-10-25
 tags: Info
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 
 ## Starter Guide
 
-TBD
+The site is split into three sections
+- Home: which features the latest posts
+- Archive: which contains everything ever posted
+- Unread books: a growing list of unread books
 
+Comments can currently only be made using a GitHub account.
+
+Enjoy your stay!
+
+---

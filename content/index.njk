@@ -6,6 +6,8 @@ const eleventyNavigation = {
 
 const numberOfLatestPostsToShow = 3;
 ---
+<img src="./Home.jpg" alt="A meme about Franz Kafka's 'The Metamorphosis'" loading="lazy" decoding="async" style="max-width: 100%; height: auto;">
+<br/>
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
 <h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
