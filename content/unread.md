@@ -18,6 +18,10 @@ const eleventyNavigation = {
 | **[Das große Spiel](https://www.orellfuessli.ch/ul/shop/home/artikeldetails/A1070537357)** | Richard Powers | 480 | 2024 |
 | **[Furye](https://www.orellfuessli.ch/shop/home/artikeldetails/A1074852181)** | Kat Eryn Rubik | 353 | 2025 |
 | **[Louma](https://www.orellfuessli.ch/shop/home/artikeldetails/A1066848934)** | Christian Schnalke | 400 | 2023 |
+| **[Der brennende Garten ](https://www.orellfuessli.ch/shop/home/artikeldetails/A1074944271?ProvID=15323993)** | V. V. Ganeshananthan | 464 | 2025 |
+| **[Dreimeterdreißig](https://www.orellfuessli.ch/shop/home/artikeldetails/A1073315548)** | Jaqueline Scheiber | 240 | 2025 |
+| **[Lügen, die wir uns erzählen](https://www.orellfuessli.ch/shop/home/artikeldetails/A1074978859)** | Anne Freytag | 384 | 2025 |
+| **[Let’s Talk About Feelings](https://www.orellfuessli.ch/shop/home/artikeldetails/A1074364471)** | Leif Randt | 320 | 2025 |
 
 ## 🦇 Horror & Supernatural
 
@@ -44,6 +48,7 @@ const eleventyNavigation = {
 | Title | Author | Page Count | Release Date |
 | :--- | :--- | :--- | :--- |
 | **[Lázár](https://www.orellfuessli.ch/ul/shop/home/artikeldetails/A1074635090)** | Nelio Biedermann | 336 | 2025 |
+| **[Ein einfaches Leben ](https://www.orellfuessli.ch/shop/home/artikeldetails/A1056408640?ProvID=15323994)** | Min Jin Lee | 552 | 2018 |
 
 ## 🔍 Thriller & Mystery
 
@@ -51,5 +56,6 @@ const eleventyNavigation = {
 | :--- | :--- | :--- | :--- |
 | **[Das Rosie Projekt](https://www.orellfuessli.ch/ul/shop/home/artikeldetails/A1033017278)** | Graeme Simsion | 295 | 2013 |
 | **[Die Nulllinie](https://www.orellfuessli.ch/shop/home/artikeldetails/A1071209785)** | Szczepan Twardoch | 251 | 2025 |
+| **[The Premonition](https://www.orellfuessli.ch/shop/home/artikeldetails/A1067822266)** | Banana Yoshimoto | 224 | 2023 |
 
 ---
