@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+title: Profile Settings
+---
+<h1>Profile Settings</h1>
+
+{%- if supabase.url %}
+<form id="settings-form" class="auth-form">
+	<p id="settings-feedback"></p>
+	<div class="field">
+		<label for="display-name">Display name</label>
+		<input type="text" id="display-name" autocomplete="name" required>
+	</div>
+	<button type="submit" class="btn-primary">Save</button>
+</form>
+<script type="module" src="/js/settings.js"></script>
+{%- else %}
+<p>Settings unavailable.</p>
+{%- endif %}

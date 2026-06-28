@@ -3,7 +3,7 @@ import { supabase } from '/js/supabase-client.js';
 const slug = window.BOOK_SLUG;
 const container = document.getElementById('comments-widget');
 
-let state = { comments: [], session: null, loading: false, error: null, draft: '' };
+let state = { comments: [], session: null, displayName: '', loading: false, error: null, draft: '' };
 
 function formatDate(iso) {
 	return new Date(iso).toLocaleDateString(undefined, {
@@ -41,6 +41,17 @@ function render() {
 			body.textContent = c.body;
 
 			header.append(author, date);
+
+			// Delete button for own comments
+			if (session && c.user_id === session.user.id) {
+				const delBtn = document.createElement('button');
+				delBtn.className = 'comment-delete';
+				delBtn.textContent = '×';
+				delBtn.setAttribute('aria-label', 'Delete comment');
+				delBtn.addEventListener('click', () => deleteComment(c.id));
+				header.appendChild(delBtn);
+			}
+
 			article.append(header, body);
 			list.appendChild(article);
 		}
@@ -110,7 +121,7 @@ async function handleSubmit(e) {
 		.insert({
 			user_id: state.session.user.id,
 			book_slug: slug,
-			display_name: state.session.user.email.split('@')[0],
+			display_name: state.displayName,
 			body,
 		})
 		.select()
@@ -130,20 +141,46 @@ async function handleSubmit(e) {
 	render();
 }
 
+async function deleteComment(id) {
+	const { error } = await supabase
+		.from('comments')
+		.delete()
+		.eq('id', id);
+
+	if (error) {
+		console.error('Comment delete failed:', error);
+		return;
+	}
+
+	state.comments = state.comments.filter(c => c.id !== id);
+	render();
+}
+
 async function init() {
 	container.innerHTML = '<p class="comments-loading">Loading comments…</p>';
 
 	const [{ data: comments }, { data: { session } }] = await Promise.all([
 		supabase
 			.from('comments')
-			.select('id, display_name, body, created_at')
+			.select('id, user_id, display_name, body, created_at')
 			.eq('book_slug', slug)
 			.order('created_at', { ascending: true }),
 		supabase.auth.getSession(),
 	]);
 
+	let displayName = '';
+	if (session) {
+		const { data: profile } = await supabase
+			.from('profiles')
+			.select('username')
+			.eq('id', session.user.id)
+			.maybeSingle();
+		displayName = profile?.username || session.user.email.split('@')[0];
+	}
+
 	state.comments = comments || [];
 	state.session = session;
+	state.displayName = displayName;
 	render();
 }
 
