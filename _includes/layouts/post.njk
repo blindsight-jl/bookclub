@@ -5,6 +5,7 @@ layout: layouts/base.njk
 <style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style>
 <style>{% include "css/prism-diff.css" %}</style>
 <h1>{{ title }}</h1>
+{%- if author %}<p class="post-author">{{ author }}</p>{%- endif %}
 
 <ul class="post-metadata">
 	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>

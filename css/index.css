@@ -301,6 +301,15 @@ header {
 	align-self: center;
 }
 
+/* Post author byline */
+.post-author {
+	font-style: italic;
+	color: var(--color-tan-mid);
+	font-family: var(--font-family-ui);
+	font-size: 1em;
+	margin: 0.2em 0 1.25em;
+}
+
 /* Post metadata */
 .post-metadata {
 	display: inline-flex;

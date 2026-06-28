@@ -1,9 +1,12 @@
 ---
 title: Fuyre
-description: von Kat Eryn Rubik
+author: Kat Eryn Rubik
+description: Ein Roman über eine Frau, die zwanzig Jahre später in ihre Küstenstadt zurückkehrt und einer vergrabenen Vergangenheit begegnet.
 date: 2025-11-09
 tags: [book, contemporary]
+genre: contemporary
 coverImage: furye-gebundene-ausgabe-kat-eryn-rubik.webp
+pageCount:
 ---
 
 
