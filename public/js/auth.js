@@ -15,9 +15,13 @@ function updateNav(session) {
 	li.className = 'nav-item nav-item-auth';
 
 	if (session) {
-		const span = document.createElement('span');
+		const span = document.createElement('a');
+		span.href = '/settings/';
 		span.className = 'nav-user';
 		span.textContent = displayName(session);
+		if (window.location.pathname === '/settings/') {
+			span.setAttribute('aria-current', 'page');
+		}
 
 		const sep = document.createTextNode(' · ');
 

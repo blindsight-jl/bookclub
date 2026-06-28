@@ -12,7 +12,7 @@ const numberOfLatestPostsToShow = 3;
 
 <div class="book-grid">
 {%- for post in postslist %}
-	<a href="{{ post.url }}" class="book-card">
+	<a href="{{ post.url }}" class="book-card" data-slug="{{ post.fileSlug }}">
 		{%- if post.data.coverImage %}
 		<img src="{{ post.url }}{{ post.data.coverImage }}" alt="Cover of {{ post.data.title }}" class="book-card-cover">
 		{%- endif %}
@@ -23,6 +23,10 @@ const numberOfLatestPostsToShow = 3;
 	</a>
 {%- endfor %}
 </div>
+
+{%- if supabase.url %}
+<script type="module" src="/js/home-ratings.js"></script>
+{%- endif %}
 
 {% set postsCount = collections.posts | length %}
 {% set morePosts = postsCount - numberOfLatestPostsToShow %}
