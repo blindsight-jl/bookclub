@@ -17,6 +17,10 @@ layout: layouts/base.njk
 
 {{ content | safe }}
 
+{%- if supabase.url and 'book' in tags %}
+<div id="rating-widget" class="rating-widget"></div>
+{%- endif %}
+
 {%- if collections.posts %}
 {%- set previousPost = collections.posts | getPreviousCollectionItem %}
 {%- set nextPost = collections.posts | getNextCollectionItem %}
@@ -26,6 +30,11 @@ layout: layouts/base.njk
 	{%- if nextPost %}<li class="links-nextprev-next">Next →<br><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
 </ul>
 {%- endif %}
+{%- endif %}
+
+{%- if supabase.url and 'book' in tags %}
+<script eleventy:ignore>window.BOOK_SLUG = "{{ page.fileSlug }}";</script>
+<script type="module" src="/js/rating-widget.js"></script>
 {%- endif %}
 
 <hr>
