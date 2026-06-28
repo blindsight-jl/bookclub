@@ -3,10 +3,9 @@ title: The Eyes Are the Best Part
 description: by Monika Kim
 date: 2025-10-26
 tags: [book, horror]
+coverImage: the-eyes-are-the-best-part.jpg
 ---
 
-<br />
-<br />
 
 <figure class="book-cover">
   <img src="./the-eyes-are-the-best-part.jpg" alt="The Eyes Are the Best Part by Monika Kim taschenbuch englisch">
