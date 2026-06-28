@@ -1,0 +1,48 @@
+---js
+const eleventyNavigation = {
+	key: "Add Book",
+	order: 4
+};
+---
+<h1>Add a Book</h1>
+
+{%- if supabase.url %}
+<form id="book-form">
+	<p id="book-form-error" class="form-error" hidden></p>
+
+	<div class="field">
+		<label for="book-title">Title</label>
+		<input type="text" id="book-title" required autocomplete="off">
+	</div>
+
+	<div class="field">
+		<label for="book-author">Author</label>
+		<input type="text" id="book-author" required autocomplete="off">
+	</div>
+
+	<div class="field">
+		<label for="book-cover">Cover image URL</label>
+		<input type="url" id="book-cover" placeholder="https://…" autocomplete="off">
+	</div>
+
+	<div class="field">
+		<label for="book-genre">Genre</label>
+		<input type="text" id="book-genre" autocomplete="off">
+	</div>
+
+	<div class="field">
+		<label for="book-month">Month read (YYYY-MM)</label>
+		<input type="month" id="book-month">
+	</div>
+
+	<div class="field">
+		<label for="book-description">Description</label>
+		<textarea id="book-description" class="comment-input" rows="8" placeholder="What's it about?"></textarea>
+	</div>
+
+	<button type="submit" id="book-submit" class="btn-primary">Add book</button>
+</form>
+<script type="module" src="/js/book-form.js"></script>
+{%- else %}
+<p>Unavailable.</p>
+{%- endif %}

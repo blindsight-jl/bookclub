@@ -4,7 +4,12 @@ const eleventyNavigation = {
 	order: 2
 };
 ---
-<h1>Archive</h1>
+<h1>All Books</h1>
 
-{% set postslist = collections.posts %}
-{% include "postslist.njk" %}
+<div id="book-archive">
+	<p class="loading-message">Loading…</p>
+</div>
+
+{%- if supabase.url %}
+<script type="module" src="/js/books-archive.js"></script>
+{%- endif %}
