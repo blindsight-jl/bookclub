@@ -818,6 +818,82 @@ button.star:focus-visible {
 	color: var(--color-tan-mid);
 }
 
+/* Unread books page */
+.unread-add {
+	margin-bottom: 2em;
+}
+
+.unread-add summary {
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	font-weight: 600;
+	color: var(--color-brown);
+	cursor: pointer;
+	user-select: none;
+	margin-bottom: 1em;
+}
+
+.unread-add summary:hover {
+	color: var(--color-brown-dark);
+}
+
+.unread-add form {
+	margin-top: 1em;
+	max-width: 28em;
+}
+
+.unread-section {
+	margin-bottom: 2em;
+}
+
+.unread-genre-heading {
+	font-size: 0.95em;
+	font-family: var(--font-family-ui);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--color-tan-mid);
+	margin: 0 0 0.6em;
+	padding-bottom: 0.4em;
+	border-bottom: 1px solid var(--color-tan);
+}
+
+.unread-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9em;
+}
+
+.unread-table th {
+	text-align: left;
+	font-family: var(--font-family-ui);
+	font-size: 0.75em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--color-tan-mid);
+	padding: 0.3em 0.5em 0.3em 0;
+	border-bottom: 1px solid var(--color-tan);
+}
+
+.unread-table td {
+	padding: 0.5em 0.5em 0.5em 0;
+	vertical-align: middle;
+	border-bottom: 1px solid var(--color-tan-faint);
+}
+
+.unread-table tr:last-child td {
+	border-bottom: none;
+}
+
+.unread-num {
+	font-family: var(--font-family-ui);
+	font-size: 0.85em;
+	color: var(--color-tan-mid);
+	text-align: right;
+	white-space: nowrap;
+}
+
 /* Footer */
 footer {
 	border-top: 1px solid var(--color-tan);
