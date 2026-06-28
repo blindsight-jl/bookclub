@@ -17,6 +17,21 @@ title: Login
 		<p id="login-error" class="form-error" hidden></p>
 		<button type="submit" id="login-btn" class="btn-primary">Sign in</button>
 	</form>
+	<p class="auth-meta"><button class="link-btn" id="forgot-link">Forgot password?</button></p>
+</div>
+
+<div id="forgot-section" hidden>
+	<p>Enter your email and we'll send a reset link.</p>
+	<form id="forgot-form" class="auth-form">
+		<div class="field">
+			<label for="forgot-email">Email</label>
+			<input type="email" id="forgot-email" required autocomplete="email">
+		</div>
+		<p id="forgot-error" class="form-error" hidden></p>
+		<p id="forgot-success" class="form-success" hidden>Check your email for the reset link.</p>
+		<button type="submit" id="forgot-btn" class="btn-primary">Send reset link</button>
+	</form>
+	<p class="auth-meta"><button class="link-btn" id="back-to-login">← Back to sign in</button></p>
 </div>
 
 <div id="recovery-section" hidden>
@@ -42,6 +57,7 @@ const sections = {
 	login:    document.getElementById('login-section'),
 	recovery: document.getElementById('recovery-section'),
 	signedIn: document.getElementById('signed-in-section'),
+	forgot:   document.getElementById('forgot-section'),
 };
 
 function showOnly(key) {
@@ -113,5 +129,36 @@ document.getElementById('recovery-form').addEventListener('submit', async e => {
 document.getElementById('logout-here-btn').addEventListener('click', async () => {
 	await supabase.auth.signOut();
 	showOnly('login');
+});
+
+// Forgot password
+document.getElementById('forgot-link').addEventListener('click', () => showOnly('forgot'));
+document.getElementById('back-to-login').addEventListener('click', () => showOnly('login'));
+
+document.getElementById('forgot-form').addEventListener('submit', async e => {
+	e.preventDefault();
+	const btn = document.getElementById('forgot-btn');
+	const errorEl = document.getElementById('forgot-error');
+	const successEl = document.getElementById('forgot-success');
+	errorEl.hidden = true;
+	successEl.hidden = true;
+	btn.disabled = true;
+	btn.textContent = 'Sending…';
+
+	const { error } = await supabase.auth.resetPasswordForEmail(
+		document.getElementById('forgot-email').value,
+		{ redirectTo: window.location.origin + '/login/' }
+	);
+
+	btn.disabled = false;
+	btn.textContent = 'Send reset link';
+
+	if (error) {
+		errorEl.textContent = error.message;
+		errorEl.hidden = false;
+	} else {
+		successEl.hidden = false;
+		document.getElementById('forgot-form').reset();
+	}
 });
 </script>

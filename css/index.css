@@ -523,6 +523,14 @@ button.star:focus-visible {
 	margin: 0 0 1em;
 }
 
+/* Auth page helper text */
+.auth-meta {
+	font-family: var(--font-family-ui);
+	font-size: 0.85em;
+	color: var(--color-tan-mid);
+	margin-top: 0.75em;
+}
+
 /* Nav auth state (injected by auth.js) */
 .nav-user {
 	font-family: var(--font-family-ui);
@@ -818,6 +826,33 @@ button.star:focus-visible {
 	color: var(--color-tan-mid);
 }
 
+/* Secondary button */
+.btn-secondary {
+	font-family: var(--font-family-ui);
+	font-size: 0.85em;
+	font-weight: 600;
+	padding: 0.4em 1em;
+	background: none;
+	color: var(--color-tan-mid);
+	border: 1px solid var(--color-tan);
+	border-radius: 4px;
+	cursor: pointer;
+	transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-secondary:hover {
+	border-color: var(--color-tan-mid);
+	color: var(--text-color);
+}
+
+/* Book action button row */
+.book-actions {
+	display: flex;
+	gap: 0.5em;
+	align-items: center;
+	margin-top: 0.75em;
+}
+
 /* Unread books page */
 .unread-add {
 	margin-bottom: 2em;
@@ -892,6 +927,44 @@ button.star:focus-visible {
 	color: var(--color-tan-mid);
 	text-align: right;
 	white-space: nowrap;
+}
+
+.unread-actions {
+	white-space: nowrap;
+}
+
+.unread-edit-btn {
+	background: none;
+	border: none;
+	color: var(--color-tan-mid);
+	cursor: pointer;
+	font-size: 1em;
+	padding: 0 0.2em;
+	line-height: 1;
+}
+
+.unread-edit-btn:hover {
+	color: var(--color-brown);
+}
+
+.unread-edit-row td {
+	padding: 0.75em 0;
+	border-bottom: 1px solid var(--color-tan);
+}
+
+.unread-inline-fields {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 1.5em;
+}
+
+.unread-inline-form .book-actions {
+	margin-top: 0.5em;
+}
+
+/* Book edit form */
+.book-edit-form {
+	margin-bottom: 1.5em;
 }
 
 /* Footer */
