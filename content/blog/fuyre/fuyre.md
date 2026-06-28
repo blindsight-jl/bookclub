@@ -3,10 +3,9 @@ title: Fuyre
 description: von Kat Eryn Rubik
 date: 2025-11-09
 tags: [book, contemporary]
+coverImage: furye-gebundene-ausgabe-kat-eryn-rubik.webp
 ---
 
-<br />
-<br />
 
 <figure class="book-cover">
   <img src="./furye-gebundene-ausgabe-kat-eryn-rubik.webp" alt="Fuyre von Kat Eryn Rubik hardcover deutsch">

@@ -6,26 +6,26 @@ const eleventyNavigation = {
 
 const numberOfLatestPostsToShow = 3;
 ---
-<img src="./Home.jpg" alt="A meme about Franz Kafka's 'The Metamorphosis'" loading="lazy" decoding="async" style="max-width: 100%; height: auto;">
-<br/>
+<h1>Latest Reads</h1>
+
+{% set postslist = collections.posts | reverse | head(numberOfLatestPostsToShow) %}
+
+<div class="book-grid">
+{%- for post in postslist %}
+	<a href="{{ post.url }}" class="book-card">
+		{%- if post.data.coverImage %}
+		<img src="{{ post.url }}{{ post.data.coverImage }}" alt="Cover of {{ post.data.title }}" class="book-card-cover">
+		{%- endif %}
+		<div class="book-card-info">
+			<span class="book-card-title">{{ post.data.title }}</span>
+			<span class="book-card-author">{{ post.data.description }}</span>
+		</div>
+	</a>
+{%- endfor %}
+</div>
+
 {% set postsCount = collections.posts | length %}
-{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
-
-{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
-{% set postslistCounter = postsCount %}
-{% include "postslist.njk" %}
-
 {% set morePosts = postsCount - numberOfLatestPostsToShow %}
 {% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="blog.njk">the archive</a>.</p>
+<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} in <a href="/blog/">the archive</a>.</p>
 {% endif %}
-
-{# List every content page in the project #}
-{#
-<ul>
-	{%- for entry in collections.all %}
-	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
-	{%- endfor %}
-</ul>
-#}

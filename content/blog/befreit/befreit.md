@@ -3,10 +3,9 @@ title: Befreit
 description: von Tara Westover
 date: 2025-11-09
 tags: [book, contemporary]
+coverImage: befreit-taschenbuch-tara-westover.webp
 ---
 
-<br />
-<br />
 
 <figure class="book-cover">
   <img src="./befreit-taschenbuch-tara-westover.webp" alt="Befreit von Tara Westover taschenbuch deutsch">
