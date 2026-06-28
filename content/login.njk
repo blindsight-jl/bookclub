@@ -1,0 +1,117 @@
+---
+layout: layouts/base.njk
+title: Login
+---
+<h1>Login</h1>
+
+<div id="login-section">
+	<form id="login-form" class="auth-form">
+		<div class="field">
+			<label for="email">Email</label>
+			<input type="email" id="email" name="email" required autocomplete="email">
+		</div>
+		<div class="field">
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" required autocomplete="current-password">
+		</div>
+		<p id="login-error" class="form-error" hidden></p>
+		<button type="submit" id="login-btn" class="btn-primary">Sign in</button>
+	</form>
+</div>
+
+<div id="recovery-section" hidden>
+	<p>Choose a password for your account.</p>
+	<form id="recovery-form" class="auth-form">
+		<div class="field">
+			<label for="new-password">New password</label>
+			<input type="password" id="new-password" name="new-password" required minlength="8" autocomplete="new-password">
+		</div>
+		<p id="recovery-error" class="form-error" hidden></p>
+		<button type="submit" class="btn-primary">Set password</button>
+	</form>
+</div>
+
+<div id="signed-in-section" hidden>
+	<p>You're already signed in. <a href="/">Go home</a> or <button id="logout-here-btn" class="link-btn">sign out</button>.</p>
+</div>
+
+<script type="module" eleventy:ignore>
+import { supabase } from '/js/supabase-client.js';
+
+const sections = {
+	login:    document.getElementById('login-section'),
+	recovery: document.getElementById('recovery-section'),
+	signedIn: document.getElementById('signed-in-section'),
+};
+
+function showOnly(key) {
+	Object.values(sections).forEach(el => { el.hidden = true; });
+	sections[key].hidden = false;
+}
+
+// Supabase processes the URL hash automatically on page load.
+// This listener handles every auth state transition that results.
+supabase.auth.onAuthStateChange((event, session) => {
+	if (event === 'PASSWORD_RECOVERY') {
+		showOnly('recovery');
+	} else if (event === 'SIGNED_IN') {
+		// Covers both: submitting the login form and clicking an invite email link.
+		window.location.href = '/';
+	} else if (event === 'INITIAL_SESSION' && session) {
+		// User navigated to /login while already logged in.
+		showOnly('signedIn');
+	}
+});
+
+// Sign-in form
+document.getElementById('login-form').addEventListener('submit', async e => {
+	e.preventDefault();
+	const btn = document.getElementById('login-btn');
+	const errorEl = document.getElementById('login-error');
+	errorEl.hidden = true;
+	btn.disabled = true;
+	btn.textContent = 'Signing in…';
+
+	const { error } = await supabase.auth.signInWithPassword({
+		email: document.getElementById('email').value,
+		password: document.getElementById('password').value,
+	});
+
+	if (error) {
+		errorEl.textContent = error.message;
+		errorEl.hidden = false;
+		btn.disabled = false;
+		btn.textContent = 'Sign in';
+	}
+	// On success, onAuthStateChange fires SIGNED_IN → redirects to /
+});
+
+// Set-password form (reached via password reset / invite email)
+document.getElementById('recovery-form').addEventListener('submit', async e => {
+	e.preventDefault();
+	const btn = e.target.querySelector('button[type="submit"]');
+	const errorEl = document.getElementById('recovery-error');
+	errorEl.hidden = true;
+	btn.disabled = true;
+	btn.textContent = 'Saving…';
+
+	const { error } = await supabase.auth.updateUser({
+		password: document.getElementById('new-password').value,
+	});
+
+	if (error) {
+		errorEl.textContent = error.message;
+		errorEl.hidden = false;
+		btn.disabled = false;
+		btn.textContent = 'Set password';
+	} else {
+		window.location.href = '/';
+	}
+});
+
+// Logout button shown when already signed in
+document.getElementById('logout-here-btn').addEventListener('click', async () => {
+	await supabase.auth.signOut();
+	showOnly('login');
+});
+</script>

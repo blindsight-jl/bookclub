@@ -5,6 +5,7 @@ layout: layouts/base.njk
 <style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style>
 <style>{% include "css/prism-diff.css" %}</style>
 <h1>{{ title }}</h1>
+{%- if author %}<p class="post-author">{{ author }}</p>{%- endif %}
 
 <ul class="post-metadata">
 	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
@@ -15,6 +16,10 @@ layout: layouts/base.njk
 </ul>
 
 {{ content | safe }}
+
+{%- if supabase.url and 'book' in tags %}
+<div id="rating-widget" class="rating-widget"></div>
+{%- endif %}
 
 {%- if collections.posts %}
 {%- set previousPost = collections.posts | getPreviousCollectionItem %}
@@ -27,16 +32,11 @@ layout: layouts/base.njk
 {%- endif %}
 {%- endif %}
 
+{%- if supabase.url and 'book' in tags %}
+<script eleventy:ignore>window.BOOK_SLUG = "{{ page.fileSlug }}";</script>
+<script type="module" src="/js/rating-widget.js"></script>
 <hr>
 <h2>Comments</h2>
-<div id="utterances-container"></div>
-<script>
-	const script = document.createElement('script');
-	script.src = 'https://utteranc.es/client.js';
-	script.setAttribute('repo', 'blindsight-jl/bookclub');
-	script.setAttribute('issue-term', 'title');
-	script.setAttribute('theme', 'github-light');
-	script.crossOrigin = 'anonymous';
-	script.async = true;
-	document.getElementById('utterances-container').appendChild(script);
-</script>
+<div id="comments-widget"></div>
+<script type="module" src="/js/comments.js"></script>
+{%- endif %}

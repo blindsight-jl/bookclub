@@ -301,6 +301,15 @@ header {
 	align-self: center;
 }
 
+/* Post author byline */
+.post-author {
+	font-style: italic;
+	color: var(--color-tan-mid);
+	font-family: var(--font-family-ui);
+	font-size: 1em;
+	margin: 0.2em 0 1.25em;
+}
+
 /* Post metadata */
 .post-metadata {
 	display: inline-flex;
@@ -379,6 +388,231 @@ header {
 	font-style: italic;
 	color: var(--color-tan-mid);
 	margin-top: 0.2em;
+}
+
+/* Rating widget */
+.rating-widget {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4em;
+	padding: 1.5em 0;
+	border-top: 1px solid var(--color-tan);
+	border-bottom: 1px solid var(--color-tan);
+	margin: 1.5em 0;
+}
+
+.rating-stars {
+	display: flex;
+	gap: 0.05em;
+}
+
+.star {
+	background: none;
+	border: none;
+	padding: 0.05em 0.1em;
+	font-size: 1.75em;
+	color: var(--color-tan);
+	line-height: 1;
+	transition: color 0.1s ease;
+}
+
+button.star {
+	cursor: pointer;
+}
+
+button.star:focus-visible {
+	outline: 2px solid var(--color-brown);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+.star.filled {
+	color: var(--color-brown);
+}
+
+.rating-summary,
+.rating-login-prompt,
+.rating-loading {
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	color: var(--color-tan-mid);
+	margin: 0;
+}
+
+/* Auth forms */
+.auth-form {
+	max-width: 22em;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4em;
+	margin-bottom: 1.25em;
+}
+
+.field label {
+	font-family: var(--font-family-ui);
+	font-size: 0.8em;
+	font-weight: 600;
+	color: var(--color-tan-mid);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.field input[type="email"],
+.field input[type="password"] {
+	font-family: var(--font-family-ui);
+	font-size: 1em;
+	padding: 0.5em 0.75em;
+	border: 1px solid var(--color-tan);
+	border-radius: 4px;
+	background: var(--background-color);
+	color: var(--text-color);
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.field input:focus {
+	border-color: var(--color-brown);
+	box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.12);
+}
+
+.btn-primary {
+	font-family: var(--font-family-ui);
+	font-size: 0.9em;
+	font-weight: 600;
+	padding: 0.55em 1.5em;
+	background: var(--color-brown);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+	background: var(--color-brown-dark);
+}
+
+.btn-primary:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.link-btn {
+	background: none;
+	border: none;
+	padding: 0;
+	color: var(--text-color-link);
+	cursor: pointer;
+	font-size: inherit;
+	font-family: inherit;
+	text-decoration: underline;
+}
+
+.link-btn:hover {
+	color: var(--text-color-link-active);
+}
+
+.form-error {
+	color: #b33;
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	margin: 0 0 1em;
+}
+
+/* Nav auth state (injected by auth.js) */
+.nav-user {
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	color: var(--color-tan-mid);
+}
+
+.nav-logout {
+	background: none;
+	border: none;
+	padding: 0;
+	color: var(--text-color-link);
+	cursor: pointer;
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+}
+
+.nav-logout:hover {
+	color: var(--text-color-link-active);
+}
+
+/* Comments */
+.comments-list {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25em;
+	margin-bottom: 1.5em;
+}
+
+.comment {
+	border-left: 3px solid var(--color-tan);
+	padding-left: 1em;
+}
+
+.comment-header {
+	display: flex;
+	align-items: baseline;
+	gap: 0.75em;
+	margin-bottom: 0.35em;
+}
+
+.comment-author {
+	font-family: var(--font-family-ui);
+	font-weight: 600;
+	font-size: 0.875em;
+	color: var(--color-brown);
+}
+
+.comment-date {
+	font-family: var(--font-family-ui);
+	font-size: 0.8em;
+	color: var(--color-tan-mid);
+}
+
+.comment-body {
+	margin: 0;
+	line-height: 1.6;
+}
+
+.comment-form {
+	margin-top: 1.5em;
+}
+
+.comment-input {
+	width: 100%;
+	font-family: var(--font-family);
+	font-size: 1em;
+	padding: 0.6em 0.75em;
+	border: 1px solid var(--color-tan);
+	border-radius: 4px;
+	background: var(--background-color);
+	color: var(--text-color);
+	resize: vertical;
+	min-height: 80px;
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.comment-input:focus {
+	border-color: var(--color-brown);
+	box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.12);
+}
+
+.comments-empty,
+.comments-loading,
+.comments-login-prompt {
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	color: var(--color-tan-mid);
+	margin: 0;
 }
 
 /* Footer */

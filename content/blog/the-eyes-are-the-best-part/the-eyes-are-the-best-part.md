@@ -1,9 +1,12 @@
 ---
 title: The Eyes Are the Best Part
-description: by Monika Kim
+author: Monika Kim
+description: A darkly inventive horror novel about Ji-won, a Korean-American college freshman unraveling after her family falls apart.
 date: 2025-10-26
 tags: [book, horror]
+genre: horror
 coverImage: the-eyes-are-the-best-part.jpg
+pageCount:
 ---
 
 

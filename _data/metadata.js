@@ -1,5 +1,5 @@
 export default {
-	title: "TollerBuchClub V1",
+	title: "TollerBuchClub V2",
 	url: "https://tollerbuchclub.com/",
 	language: "en",
 	description: "The official website of the fantastic book club TollerBuchClub",

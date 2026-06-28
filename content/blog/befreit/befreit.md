@@ -1,9 +1,12 @@
 ---
 title: Befreit
-description: von Tara Westover
+author: Tara Westover
+description: Memoar von Tara Westover – aufgewachsen ohne Schule in den Idaho-Bergen, kämpft sie sich bis nach Cambridge frei.
 date: 2025-11-09
 tags: [book, contemporary]
+genre: contemporary
 coverImage: befreit-taschenbuch-tara-westover.webp
+pageCount:
 ---
 
 
