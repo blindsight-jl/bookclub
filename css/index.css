@@ -390,6 +390,110 @@ header {
 	margin-top: 0.2em;
 }
 
+/* Auth forms */
+.auth-form {
+	max-width: 22em;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4em;
+	margin-bottom: 1.25em;
+}
+
+.field label {
+	font-family: var(--font-family-ui);
+	font-size: 0.8em;
+	font-weight: 600;
+	color: var(--color-tan-mid);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.field input[type="email"],
+.field input[type="password"] {
+	font-family: var(--font-family-ui);
+	font-size: 1em;
+	padding: 0.5em 0.75em;
+	border: 1px solid var(--color-tan);
+	border-radius: 4px;
+	background: var(--background-color);
+	color: var(--text-color);
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.field input:focus {
+	border-color: var(--color-brown);
+	box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.12);
+}
+
+.btn-primary {
+	font-family: var(--font-family-ui);
+	font-size: 0.9em;
+	font-weight: 600;
+	padding: 0.55em 1.5em;
+	background: var(--color-brown);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+	background: var(--color-brown-dark);
+}
+
+.btn-primary:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.link-btn {
+	background: none;
+	border: none;
+	padding: 0;
+	color: var(--text-color-link);
+	cursor: pointer;
+	font-size: inherit;
+	font-family: inherit;
+	text-decoration: underline;
+}
+
+.link-btn:hover {
+	color: var(--text-color-link-active);
+}
+
+.form-error {
+	color: #b33;
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	margin: 0 0 1em;
+}
+
+/* Nav auth state (injected by auth.js) */
+.nav-user {
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+	color: var(--color-tan-mid);
+}
+
+.nav-logout {
+	background: none;
+	border: none;
+	padding: 0;
+	color: var(--text-color-link);
+	cursor: pointer;
+	font-family: var(--font-family-ui);
+	font-size: 0.875em;
+}
+
+.nav-logout:hover {
+	color: var(--text-color-link-active);
+}
+
 /* Footer */
 footer {
 	border-top: 1px solid var(--color-tan);
