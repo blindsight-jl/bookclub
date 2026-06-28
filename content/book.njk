@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+title: Book
+---
+<div id="book-detail"></div>
+
+{%- if supabase.url %}
+<script eleventy:ignore>
+window.BOOK_SLUG = new URLSearchParams(window.location.search).get('slug');
+</script>
+<div id="rating-widget" class="rating-widget"></div>
+<hr>
+<h2>Comments</h2>
+<div id="comments-widget"></div>
+<script type="module" src="/js/book-page.js"></script>
+<script type="module" src="/js/rating-widget.js"></script>
+<script type="module" src="/js/comments.js"></script>
+{%- endif %}

@@ -1,35 +1,21 @@
----js
-const eleventyNavigation = {
-	key: "Home",
-	order: 1
-};
-
-const numberOfLatestPostsToShow = 3;
+---
 ---
 <h1>Latest Reads</h1>
 
-{% set postslist = collections.posts | reverse | head(numberOfLatestPostsToShow) %}
-
-<div class="book-grid">
-{%- for post in postslist %}
-	<a href="{{ post.url }}" class="book-card" data-slug="{{ post.fileSlug }}">
-		{%- if post.data.coverImage %}
-		<img src="{{ post.url }}{{ post.data.coverImage }}" alt="Cover of {{ post.data.title }}" class="book-card-cover">
-		{%- endif %}
-		<div class="book-card-info">
-			<span class="book-card-title">{{ post.data.title }}</span>
-			<span class="book-card-author">{{ post.data.author }}</span>
-		</div>
-	</a>
-{%- endfor %}
+<div id="book-grid" class="book-grid">
+	<p class="loading-message">Loading…</p>
 </div>
 
 {%- if supabase.url %}
-<script type="module" src="/js/home-ratings.js"></script>
+<script type="module" src="/js/books-home.js"></script>
 {%- endif %}
 
-{% set postsCount = collections.posts | length %}
-{% set morePosts = postsCount - numberOfLatestPostsToShow %}
-{% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} in <a href="/blog/">the archive</a>.</p>
-{% endif %}
+<p><a href="/blog/">View all books →</a></p>
+
+{%- if supabase.url %}
+<hr>
+<h2>General Discussion</h2>
+<script eleventy:ignore>window.BOOK_SLUG = 'general';</script>
+<div id="comments-widget"></div>
+<script type="module" src="/js/comments.js"></script>
+{%- endif %}

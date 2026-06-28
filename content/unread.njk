@@ -1,0 +1,56 @@
+---js
+const eleventyNavigation = {
+	key: "Unread",
+	order: 3
+};
+---
+<h1>Unread Books</h1>
+
+{%- if supabase.url %}
+<details class="unread-add">
+	<summary>+ Add a book</summary>
+	<form id="unread-form">
+		<p id="unread-form-error" class="form-error" hidden></p>
+
+		<div class="field">
+			<label for="unread-title">Title</label>
+			<input type="text" id="unread-title" required autocomplete="off">
+		</div>
+
+		<div class="field">
+			<label for="unread-author">Author</label>
+			<input type="text" id="unread-author" required autocomplete="off">
+		</div>
+
+		<div class="field">
+			<label for="unread-genre">Genre</label>
+			<input type="text" id="unread-genre" required autocomplete="off">
+		</div>
+
+		<div class="field">
+			<label for="unread-pages">Page count</label>
+			<input type="number" id="unread-pages" min="1" max="9999" autocomplete="off">
+		</div>
+
+		<div class="field">
+			<label for="unread-year">Release year</label>
+			<input type="number" id="unread-year" min="1900" max="2099" autocomplete="off">
+		</div>
+
+		<div class="field">
+			<label for="unread-link">Link (optional)</label>
+			<input type="url" id="unread-link" placeholder="https://…" autocomplete="off">
+		</div>
+
+		<button type="submit" id="unread-submit" class="btn-primary">Add book</button>
+	</form>
+</details>
+
+<div id="unread-list">
+	<p class="loading-message">Loading…</p>
+</div>
+
+<script type="module" src="/js/unread-books.js"></script>
+{%- else %}
+<p>Unavailable.</p>
+{%- endif %}

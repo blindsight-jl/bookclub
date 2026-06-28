@@ -48,6 +48,8 @@
 			window.SUPABASE_URL = "{{ supabase.url }}";
 			window.SUPABASE_ANON_KEY = "{{ supabase.anonKey }}";
 		</script>
+		<script eleventy:ignore>document.documentElement.style.visibility='hidden';</script>
+		<script type="module" src="/js/auth-guard.js"></script>
 		{%- endif %}
 	</head>
 	<body>
