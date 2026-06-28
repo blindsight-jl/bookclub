@@ -85,14 +85,27 @@ async function submitRating(newRating) {
 	}
 	render();
 
-	const { error } = await supabase
+	// Delete any existing rating then insert — simpler than upsert with composite conflict
+	const { error: delErr } = await supabase
 		.from('ratings')
-		.upsert(
-			{ user_id: session.user.id, book_slug: slug, rating: newRating },
-			{ onConflict: 'user_id,book_slug' }
-		);
+		.delete()
+		.eq('book_slug', slug)
+		.eq('user_id', session.user.id);
 
-	if (error) {
+	if (delErr) {
+		console.error('Rating delete failed:', delErr.message, delErr);
+		state.myRating = prevRating;
+		state.allRatings = prevRatings;
+		render();
+		return;
+	}
+
+	const { error: insErr } = await supabase
+		.from('ratings')
+		.insert({ user_id: session.user.id, book_slug: slug, rating: newRating });
+
+	if (insErr) {
+		console.error('Rating insert failed:', insErr.message, insErr);
 		state.myRating = prevRating;
 		state.allRatings = prevRatings;
 		render();

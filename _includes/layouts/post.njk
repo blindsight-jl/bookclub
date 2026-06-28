@@ -35,18 +35,8 @@ layout: layouts/base.njk
 {%- if supabase.url and 'book' in tags %}
 <script eleventy:ignore>window.BOOK_SLUG = "{{ page.fileSlug }}";</script>
 <script type="module" src="/js/rating-widget.js"></script>
-{%- endif %}
-
 <hr>
 <h2>Comments</h2>
-<div id="utterances-container"></div>
-<script>
-	const script = document.createElement('script');
-	script.src = 'https://utteranc.es/client.js';
-	script.setAttribute('repo', 'blindsight-jl/bookclub');
-	script.setAttribute('issue-term', 'title');
-	script.setAttribute('theme', 'github-light');
-	script.crossOrigin = 'anonymous';
-	script.async = true;
-	document.getElementById('utterances-container').appendChild(script);
-</script>
+<div id="comments-widget"></div>
+<script type="module" src="/js/comments.js"></script>
+{%- endif %}
