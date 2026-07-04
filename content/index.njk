@@ -1,10 +1,15 @@
 ---
 ---
-<h1>Latest Reads</h1>
+<h1 class="visually-hidden">Latest reads</h1>
 
-<div id="book-grid" class="book-grid">
+<section id="book-feature">
 	<p class="loading-message">Loading…</p>
-</div>
+</section>
+
+<section id="previous-books" hidden>
+	<h2 class="chapter-heading">Previously</h2>
+	<div id="book-grid" class="book-grid"></div>
+</section>
 
 {%- if supabase.url %}
 <script type="module" src="/js/books-home.js"></script>
@@ -13,8 +18,7 @@
 <p><a href="/blog/">View all books →</a></p>
 
 {%- if supabase.url %}
-<hr>
-<h2>General Discussion</h2>
+<h2 class="chapter-heading">General Discussion</h2>
 <script eleventy:ignore>window.BOOK_SLUG = 'general';</script>
 <div id="comments-widget"></div>
 <script type="module" src="/js/comments.js"></script>
