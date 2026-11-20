@@ -1,8 +1,8 @@
 export default {
-	title: "TollerBuchClub V2",
+	title: "Buchfreundis",
 	url: "https://tollerbuchclub.com/",
 	language: "en",
-	description: "The official website of the fantastic book club TollerBuchClub",
+	description: "The shared bookshelf of the Buchfreundis book club.",
 	author: {
 		name: "Jamel",
 		url: "https://tollerbuchclub.com/about/"

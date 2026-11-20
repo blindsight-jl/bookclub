@@ -8,12 +8,13 @@ tags: Info
 
 ## Starter Guide
 
-The site is split into three sections
-- Home: which features the latest posts
-- Archive: which contains everything ever posted
-- Unread books: a growing list of unread books
+The site is split into four sections
+- Home: our latest reads and general discussion
+- Bookshelf: everything we have read, grouped by month
+- Rankings: our highest-rated books by year and your missing ratings
+- Add a book: a place to add our latest shared read
 
-Comments can currently only be made using a GitHub account.
+Comments and ratings use your book-club account.
 
 Enjoy your stay!
 

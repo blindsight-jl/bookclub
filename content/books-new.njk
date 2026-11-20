@@ -1,10 +1,14 @@
 ---js
 const eleventyNavigation = {
-	key: "Add Book",
+	key: "Add a book",
 	order: 4
 };
 ---
-<h1>Add a Book</h1>
+<div class="page-header">
+	<p class="page-kicker">Add to our story</p>
+	<h1>Add a book</h1>
+	<p class="page-description">Finished something worth talking about? Give it a place on our shared bookshelf.</p>
+</div>
 
 {%- if supabase.url %}
 <form id="book-form">

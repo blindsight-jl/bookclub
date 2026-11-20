@@ -1,0 +1,56 @@
+---js
+const title = "Rankings";
+const eleventyNavigation = {
+	key: "Rankings",
+	order: 3
+};
+---
+<div class="page-header">
+	<p class="page-kicker">The stories that stayed with us</p>
+	<h1>Book rankings</h1>
+	<p class="page-description">See our highest-rated reads by year, then fill in any ratings still missing from your bookshelf.</p>
+</div>
+
+{%- if supabase.url %}
+<div class="rankings-tabs" role="tablist" aria-label="Ratings views">
+	<button class="rankings-tab" id="group-tab" type="button" role="tab" aria-selected="true" aria-controls="group-panel" tabindex="0" data-ranking-view="group">Group rankings</button>
+	<button class="rankings-tab" id="missing-tab" type="button" role="tab" aria-selected="false" aria-controls="missing-panel" tabindex="-1" data-ranking-view="missing">Rate missing books <span class="rankings-tab-count" id="missing-count" hidden></span></button>
+</div>
+
+<section class="rankings-panel" id="group-panel" role="tabpanel" aria-labelledby="group-tab" tabindex="0">
+	<div class="rankings-toolbar">
+		<div>
+			<p class="section-kicker">Our favorites, by the numbers</p>
+			<h2 id="rankings-year-heading">Group rankings</h2>
+		</div>
+		<div class="year-filter" id="year-filter" hidden>
+			<label for="rankings-year">Reading year</label>
+			<select id="rankings-year"></select>
+		</div>
+	</div>
+	<div id="rankings-results">
+		<p class="loading-message">Counting our stars…</p>
+	</div>
+</section>
+
+<section class="rankings-panel" id="missing-panel" role="tabpanel" aria-labelledby="missing-tab" tabindex="0" hidden>
+	<div class="rating-progress">
+		<div class="rating-progress-copy">
+			<p class="section-kicker">Your reading record</p>
+			<h2>Rate missing books</h2>
+			<p id="rating-progress-text">Checking your ratings…</p>
+		</div>
+		<div class="rating-progress-badge" id="rating-progress-badge" aria-hidden="true">0%</div>
+		<div class="rating-progress-track" id="rating-progress-track" role="progressbar" aria-label="Books you have rated" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+			<span id="rating-progress-bar"></span>
+		</div>
+	</div>
+	<p class="quick-rating-intro">Pick one to five stars. Your choice saves right away and joins the group rankings.</p>
+	<div id="missing-results"></div>
+</section>
+
+<p class="visually-hidden" id="rankings-status" role="status" aria-live="polite"></p>
+<script type="module" src="/js/rankings.js"></script>
+{%- else %}
+<p>Rankings unavailable.</p>
+{%- endif %}
