@@ -12,11 +12,11 @@ The main features are:
 - Book creation, editing, and deletion.
 - Five-star ratings and comments for each read book.
 - A general discussion on the home page.
-- An unread-book list grouped by genre, with add, edit, and remove operations.
+- Yearly book rankings based on member averages, plus a personal quick-rating view for missing ratings.
 - Per-user display-name settings.
 - A small Markdown blog with tags, a sitemap, and a custom 404 page.
 
-The site metadata in `_data/metadata.js` identifies the production site as `https://tollerbuchclub.com/` and the title as `TollerBuchClub V2`. The package name and much of `README.md` still come from the upstream `eleventy-base-blog` starter; use the source files and this guide to understand the custom application.
+The site metadata in `_data/metadata.js` identifies the production site as `https://tollerbuchclub.com/` and the title as `Buchfreundis`. The package name and much of `README.md` still come from the upstream `eleventy-base-blog` starter; use the source files and this guide to understand the custom application.
 
 ## Technology stack and runtime architecture
 
@@ -25,7 +25,7 @@ The site metadata in `_data/metadata.js` identifies the production site as `http
 - **Browser code:** Plain JavaScript ES modules and DOM APIs; no frontend framework and no browser bundler or transpiler.
 - **Backend services:** Supabase Auth and Postgres, accessed directly from the browser with the Supabase JavaScript client.
 - **Browser dependency loading:** `public/js/supabase-client.js` imports `https://esm.sh/@supabase/supabase-js@2`. The npm `@supabase/supabase-js` dependency is also present, but the browser modules do not import the npm copy.
-- **Styling:** Handwritten CSS with custom properties, a light/dark color scheme, responsive layouts, Google-hosted Lora and Vollkorn fonts, and system UI/monospace font stacks.
+- **Styling:** Handwritten CSS with custom properties, a light/dark color scheme, responsive layouts, Google-hosted Bricolage Grotesque and DM Sans fonts, and system UI/monospace font stacks.
 - **Node:** `.nvmrc` selects Node 20. `package.json` declares Node 18 or newer; prefer Node 20 for consistency with the repository.
 
 At build time, Eleventy reads `SUPABASE_URL` and `SUPABASE_ANON_KEY` through `_data/supabase.js`. `eleventy.config.js` imports `dotenv/config`, so a local `.env` can supply them. `_includes/layouts/base.njk` writes both values to `window.SUPABASE_URL` and `window.SUPABASE_ANON_KEY` in generated HTML.
@@ -97,7 +97,7 @@ Do not edit `_site/`; it is generated output and is gitignored. `node_modules/`,
 | `/blog/` | `content/blog.njk`, `books-archive.js` | Displays all database books grouped by `month_read`. Despite the route name, this is the read-book archive, not the Markdown post list. |
 | `/book/?slug=...` | `content/book.njk`, `book-page.js`, `rating-widget.js`, `comments.js` | Loads one book by slug and provides ratings/comments; signed-in users see edit and delete controls. |
 | `/books-new/` | `content/books-new.njk`, `book-form.js` | Creates a book with a slug derived from its title. |
-| `/unread/` | `content/unread.njk`, `unread-books.js` | Lists unread books by genre and supports add, inline edit, and removal. |
+| `/rankings/` | `content/rankings.njk`, `rankings.js` | Ranks books by yearly member average and lets signed-in users insert ratings for books they have not rated yet. |
 | `/login/` | `content/login.njk` | Contains its own inline ES module for sign-in, recovery, invite/password setup, and logout. |
 | `/settings/` | `content/settings.njk`, `settings.js` | Reads and saves the current user's profile username. |
 | `/blog/welcome/` | `content/blog/welcome.md` | Static Markdown post using the common post layout. |
@@ -105,7 +105,7 @@ Do not edit `_site/`; it is generated output and is gitignored. `node_modules/`,
 | `/sitemap.xml` | `content/sitemap.xml.njk` | Lists statically generated collection pages; it does not enumerate database book slugs. |
 | `/404.html` | `content/404.md` | Static not-found page. |
 
-`books-home.js`, `books-archive.js`, `book-page.js`, `book-form.js`, and `unread-books.js` own book-list and book-management behavior. `rating-widget.js` and `comments.js` are shared widgets initialized from `window.BOOK_SLUG`. `settings.js` owns profile persistence. Keep page-specific initialization in the relevant module rather than adding it to the global authentication scripts.
+`books-home.js`, `books-archive.js`, `book-page.js`, and `book-form.js` own book-list and book-management behavior. `rankings.js` owns yearly leaderboard calculation and missing-rating inserts. `rating-widget.js` and `comments.js` are shared widgets initialized from `window.BOOK_SLUG`. `settings.js` owns profile persistence. Keep page-specific initialization in the relevant module rather than adding it to the global authentication scripts.
 
 Deleting a read book currently deletes only its `books` row. The confirmation text explicitly notes that its ratings and comments remain in the database; preserve or deliberately change that behavior when working on deletion.
 
@@ -114,7 +114,7 @@ Deleting a read book currently deletes only its `books` row. The confirmation te
 - Input is `content`, includes are `_includes`, global data is `_data`, and output is `_site`.
 - Supported template formats are Markdown, Nunjucks, HTML, Liquid, and `11ty.js`. Markdown and HTML are preprocessed with Nunjucks.
 - Use YAML front matter or JavaScript front matter (`---js`) matching the neighboring page. JavaScript front matter is used for navigation and pagination configuration.
-- Add a page to the top navigation with an `eleventyNavigation` object containing `key` and `order`. The current ordered dynamic pages are Archive (2), Unread (3), and Add Book (4). Authentication links are injected separately by `auth.js`.
+- Add a page to the top navigation with an `eleventyNavigation` object containing `key` and `order`. The current ordered dynamic pages are Bookshelf (2), Rankings (3), and Add a book (4). Authentication links are injected separately by `auth.js`.
 - The default layout comes from the data cascade. Override it in page front matter only when needed, as `book.njk`, `login.njk`, and `settings.njk` do.
 - A `draft: true` value adds `(draft)` to the title and excludes the page from full production builds. Drafts remain available in serve/watch mode. Non-boolean draft values fail schema validation.
 - Database books are application records, not Markdown posts. Adding a Markdown file does not add a book to the home page or `/blog/` archive.
@@ -127,13 +127,12 @@ Deleting a read book currently deletes only its `books` row. The confirmation te
 
 No SQL schema, policies, or migrations are stored here. The following fields are the contracts used by the current browser code; confirm constraints, defaults, and Row Level Security in the Supabase project before changing them.
 
-- **`books`**: `id`, `slug`, `title`, `author`, `cover_url`, `genre`, `month_read`, `description`, `added_by`, and `created_at` are read or written. New slugs are lowercase, ASCII-normalized, hyphenated titles. The form maps database error `23505` to a duplicate-title message, so the implementation expects slug uniqueness. Month inputs are stored as the first day of the month (`YYYY-MM-01`). Optional text, URL, description, and month values are stored as `null` when empty.
-- **`unread_books`**: `id`, `title`, `author`, `genre`, `page_count`, `release_year`, `link`, and `added_by`. Rows are ordered by genre and title. Page count and release year are optional integers; the forms constrain them to 1–9999 and 1900–2099 respectively.
-- **`ratings`**: `book_slug`, `user_id`, and integer `rating` from 1 to 5. Ratings are keyed logically by book and user. Updating a rating currently deletes the user's existing row and inserts a replacement, with client-side rollback on failure.
+- **`books`**: `id`, `slug`, `title`, `author`, `cover_url`, `genre`, `month_read`, `description`, `added_by`, and `created_at` are read or written. New slugs are lowercase, ASCII-normalized, hyphenated titles. The form maps database error `23505` to a duplicate-title message, so the implementation expects slug uniqueness. Month inputs are stored as the first day of the month (`YYYY-MM-01`). Optional text, URL, description, and month values are stored as `null` when empty. Rankings derive reading years from `month_read` and group undated books separately.
+- **`ratings`**: `book_slug`, `user_id`, and integer `rating` from 1 to 5. Ratings are keyed logically by book and user. Updating a rating on the book page currently deletes the user's existing row and inserts a replacement, with client-side rollback on failure. The quick-rating view inserts only ratings missing for the current user. Leaderboards use arithmetic member averages, then rating count and title as tie-breakers.
 - **`comments`**: `id`, `book_slug`, `user_id`, `display_name`, `body`, and `created_at`. Comments are ordered oldest first. The general discussion uses `book_slug = 'general'`; dynamic book pages use the URL slug; tagged Markdown book posts use their file slug. The UI only exposes deletion on the current user's own comments.
 - **`profiles`**: `id` and `username`, where `id` is the Supabase Auth user ID. Settings updates an existing profile or inserts one if absent. Comments prefer the profile username and fall back to the email local part.
 
-The UI generally exposes book and unread-book mutations to any signed-in user, ratings to signed-in users, and comment deletion only to the comment author. These interface checks are not authorization boundaries; database policies must enforce the actual rules.
+The UI generally exposes book mutations and ratings to any signed-in user, and comment deletion only to the comment author. These interface checks are not authorization boundaries; database policies must enforce the actual rules. The legacy `unread_books` table is no longer used by the frontend and was intentionally left untouched when the unread feature was removed.
 
 ## Code style guidelines
 
@@ -141,7 +140,7 @@ The UI generally exposes book and unread-book mutations to any signed-in user, r
 - Match the surrounding file's quote and formatting style. Browser modules generally use single quotes and semicolons; Eleventy configuration commonly uses double quotes.
 - Keep browser modules framework-free and page-scoped. The established pattern is a small state object, an `init()` function, and DOM-building/render functions.
 - Use `document.createElement`, `textContent`, and explicit attributes for database/user content. Existing fixed `innerHTML` strings contain only trusted literals; do not introduce untrusted data into `innerHTML` or unsafe Nunjucks interpolation.
-- Reuse the central CSS custom properties and classes in `css/index.css`. The existing visual language uses warm book-inspired colors, serif body/display type, chapter-style ruled headings, and compact system-font UI labels.
+- Reuse the central CSS custom properties and classes in `css/index.css`. The Buchfreundis visual language uses pink, coral, yellow, and sky-blue accents, dark sticker-style outlines and offset shadows, rounded cards, Bricolage Grotesque display type, and DM Sans body/UI type. The group artwork is `public/images/buchfreundis-logo.svg`.
 - Preserve accessibility behavior already present: semantic controls, labels, skip navigation, keyboard focus styles, alt text where appropriate, and reduced-motion handling.
 - The site uses root-absolute browser URLs such as `/js/...`, `/login/`, and `/book/?slug=...`, and static page URLs conventionally end in `/`. Audit all of these if changing hosting paths or URL behavior.
 - No formatter, linter, or type checker is configured. Do not claim checks that do not exist.
@@ -162,7 +161,7 @@ Relevant manual coverage includes:
 - Unauthenticated redirect to `/login/`, successful sign-in/logout, and password recovery.
 - Home and archive rendering, cover handling, month grouping, and average ratings.
 - Add, edit, open, and delete read-book flows using `/book/?slug=...`.
-- Unread-book add, inline edit, grouping, and removal.
+- Yearly ranking averages, vote counts, tie-breaking, unrated/undated placement, quick-rating success/failure, progress updates, and the all-rated state.
 - Rating creation and replacement, comment creation, own-comment deletion, and the home page's `general` discussion.
 - Profile username creation/update and its use in comments.
 - Static Markdown/tag pages when layouts, collections, navigation, or Eleventy configuration change.
