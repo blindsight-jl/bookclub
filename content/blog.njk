@@ -1,13 +1,17 @@
 ---js
 const eleventyNavigation = {
-	key: "Archive",
+	key: "Bookshelf",
 	order: 2
 };
 ---
-<h1>All Books</h1>
+<div class="page-header">
+	<p class="page-kicker">Our shared reading history</p>
+	<h1>The bookshelf</h1>
+	<p class="page-description">Every story we’ve read together, month by month. Pick a book to see our ratings and join the conversation.</p>
+</div>
 
 <div id="book-archive">
-	<p class="loading-message">Loading…</p>
+	<p class="loading-message">Browsing the bookshelf…</p>
 </div>
 
 {%- if supabase.url %}

@@ -1,13 +1,40 @@
 ---
 ---
-<h1 class="visually-hidden">Latest reads</h1>
-
-<section id="book-feature">
-	<p class="loading-message">Loading…</p>
+<section class="hero" aria-labelledby="home-title">
+	<div class="hero-content">
+		<p class="hero-eyebrow">The Buchfreundis book club</p>
+		<h1 id="home-title">Good books.<br>Great <span class="hero-highlight">company.</span></h1>
+		<p class="hero-description">A home for the stories we read, the favorites we press into each other’s hands, and every conversation that follows.</p>
+		<div class="hero-actions">
+			<a class="button-link" href="#latest-read">Explore our bookshelf <span aria-hidden="true">↓</span></a>
+			<a class="hero-text-link" href="/books-new/">Add a book <span aria-hidden="true">↗</span></a>
+		</div>
+	</div>
+	<div class="hero-art">
+		<img src="/images/buchfreundis-logo.svg" width="600" height="600" alt="Buchfreundis: a rainbow, a pink heart, and a sparkle" fetchpriority="high" eleventy:ignore>
+	</div>
 </section>
 
-<section id="previous-books" hidden>
-	<h2 class="chapter-heading">Previously</h2>
+<section class="home-section" id="latest-read" aria-labelledby="latest-title">
+	<div class="section-heading-row">
+		<div>
+			<p class="section-kicker">Fresh from our reading table</p>
+			<h2 class="section-title" id="latest-title">Our latest chapter</h2>
+		</div>
+		<a class="section-link" href="/blog/">See all our books <span aria-hidden="true">→</span></a>
+	</div>
+	<div id="book-feature">
+		<p class="loading-message">Opening our latest book…</p>
+	</div>
+</section>
+
+<section class="home-section" id="previous-books" aria-labelledby="previous-title" hidden>
+	<div class="section-heading-row">
+		<div>
+			<p class="section-kicker">Worth another look</p>
+			<h2 class="section-title" id="previous-title">More from our shelf</h2>
+		</div>
+	</div>
 	<div id="book-grid" class="book-grid"></div>
 </section>
 
@@ -15,11 +42,17 @@
 <script type="module" src="/js/books-home.js"></script>
 {%- endif %}
 
-<p><a href="/blog/">View all books →</a></p>
-
 {%- if supabase.url %}
-<h2 class="chapter-heading">General Discussion</h2>
-<script eleventy:ignore>window.BOOK_SLUG = 'general';</script>
-<div id="comments-widget"></div>
-<script type="module" src="/js/comments.js"></script>
+<section class="home-section discussion-section" aria-labelledby="discussion-title">
+	<div class="section-heading-row">
+		<div>
+			<p class="section-kicker">Between the pages</p>
+			<h2 class="section-title" id="discussion-title">The group chat</h2>
+		</div>
+	</div>
+	<p class="discussion-intro">Recommendations, reading plans, strong opinions — this space is for whatever’s on your mind.</p>
+	<script eleventy:ignore>window.BOOK_SLUG = 'general';</script>
+	<div id="comments-widget"></div>
+	<script type="module" src="/js/comments.js"></script>
+</section>
 {%- endif %}

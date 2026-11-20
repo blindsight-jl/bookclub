@@ -1,14 +1,18 @@
 ---js
 const eleventyNavigation = {
-	key: "Unread",
+	key: "Want to read",
 	order: 3
 };
 ---
-<h1>Unread Books</h1>
+<div class="page-header">
+	<p class="page-kicker">Up next, eventually</p>
+	<h1>Want to read</h1>
+	<p class="page-description">Our collective to-be-read pile. Add a recommendation or find your next favorite by genre.</p>
+</div>
 
 {%- if supabase.url %}
 <details class="unread-add">
-	<summary>+ Add a book</summary>
+	<summary>+ Add a recommendation</summary>
 	<form id="unread-form">
 		<p id="unread-form-error" class="form-error" hidden></p>
 
@@ -47,7 +51,7 @@ const eleventyNavigation = {
 </details>
 
 <div id="unread-list">
-	<p class="loading-message">Loading…</p>
+	<p class="loading-message">Gathering our recommendations…</p>
 </div>
 
 <script type="module" src="/js/unread-books.js"></script>

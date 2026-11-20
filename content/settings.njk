@@ -2,7 +2,11 @@
 layout: layouts/base.njk
 title: Profile Settings
 ---
-<h1>Profile Settings</h1>
+<div class="page-header">
+	<p class="page-kicker">Make it yours</p>
+	<h1>Your profile</h1>
+	<p class="page-description">Choose the name your fellow Buchfreundis will see beside your comments.</p>
+</div>
 
 {%- if supabase.url %}
 <form id="settings-form" class="auth-form">

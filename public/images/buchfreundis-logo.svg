@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title description">
+	<title id="title">Buchfreundis</title>
+	<desc id="description">A colorful rainbow, a pink heart, and a sparkle above the Buchfreundis name.</desc>
+	<rect width="600" height="600" fill="#f6a6bc"/>
+	<g fill="none" stroke-linecap="round">
+		<path d="M185 292a125 125 0 0 1 250 0" stroke="#252128" stroke-width="66"/>
+		<path d="M185 292a125 125 0 0 1 250 0" stroke="#a9ddeb" stroke-width="56"/>
+		<path d="M220 292a90 90 0 0 1 180 0" stroke="#252128" stroke-width="57"/>
+		<path d="M220 292a90 90 0 0 1 180 0" stroke="#f2765b" stroke-width="47"/>
+		<path d="M255 292a55 55 0 0 1 110 0" stroke="#252128" stroke-width="49"/>
+		<path d="M255 292a55 55 0 0 1 110 0" stroke="#f8dc58" stroke-width="39"/>
+	</g>
+	<path d="M386 231c-29-13-55-38-51-65 4-28 38-38 59-12 20-26 56-18 62 9 7 31-29 57-70 68Z" fill="#f7b8e7" stroke="#252128" stroke-width="6" stroke-linejoin="round"/>
+	<path d="M155 181c4 22 13 31 34 36-21 5-30 14-34 36-5-22-14-31-35-36 21-5 30-14 35-36Z" fill="#fff9f2" stroke="#252128" stroke-width="5" stroke-linejoin="round"/>
+	<rect x="91" y="279" width="418" height="153" rx="55" fill="#a9ddeb" stroke="#252128" stroke-width="6"/>
+	<rect x="105" y="293" width="390" height="125" rx="44" fill="#f2765b" stroke="#252128" stroke-width="5"/>
+	<rect x="123" y="310" width="354" height="91" rx="31" fill="#f8dc58" stroke="#252128" stroke-width="5"/>
+	<text x="300" y="378" fill="#252128" font-family="Arial Black, Arial, sans-serif" font-size="65" font-weight="900" text-anchor="middle" transform="translate(300 0) scale(.58 1) translate(-300 0)">BUCHFREUNDIS</text>
+</svg>
